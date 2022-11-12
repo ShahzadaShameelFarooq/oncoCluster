@@ -1,11 +1,27 @@
 Package: oncoCluster
 Type: Package
-Title: What the Package Does (Title Case)
+Title: Identifies Cancer sub-types by using clustering algorithms
 Version: 0.1.0
-Author: Who wrote it
-Maintainer: The package maintainer <yourself@somewhere.net>
-Description: More about what it does (maybe more than one line)
-    Use four spaces when indenting paragraphs within the Description.
-License: What license is it under?
+Authors@R: person("Shahzada Muhammad Shameel", "Farooq",
+              email = "shahzada.farooq@mail.utoronto.ca",
+              role = c("aut", "cre"))
+Maintainer: Shahzada Muhammad Shameel Farooq <shahzada.farooq@mail.utoronto.ca>
+Description: R package to identify cancer sub-types through the use of both 
+    single and multi-omics data. The package employs various clustering 
+    algorithms allowing the user to compare the results of the different 
+    methods.
+License: MIT + file LICENSE
 Encoding: UTF-8
 LazyData: true
+Depends: R (>= 3.1.0)
+Roxygen: list(markdown = TRUE)
+RoxygenNote: 7.2.1
+Imports:
+  ggplot2
+Suggests: 
+    testthat,
+    knitr,
+    rmarkdown
+VignetteBuilder: knitr
+URL: https://github.com/ShahzadaShameelFarooq/oncoCluster
+BugReports: https://github.com/ShahzadaShameelFarooq/oncoCluster/issues
