@@ -57,3 +57,10 @@ data and 1 function which provides a graphical output.
 The author of the package is Shahzada Muhammad Shameel Farooq.
 
 ## References
+
+## Acknowledgements
+
+This package was developed as part of an assessment for 2022 BCB410H:
+Applied Bioinformatics course at the University of Toronto, Toronto,
+CANADA. oncoCluster welcomes issues, enhancement requests, and other
+contributions. To submit an issue, use the GitHub issues.
