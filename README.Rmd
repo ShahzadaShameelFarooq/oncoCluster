@@ -55,18 +55,39 @@ browseVignettes("oncoCluster")
 1 function which provides a graphical output.
 
 - Analysis (1 function):
-1. Using DNA methylation data from different Breast Cancer tissue samples to 
-identify sub-types.
+1. Using DNA methylation data of different methylation sites from various 
+samples to identify sub-types in the cancer.
 
 - Graphical Output
-1. The result from the Analysis function is used to get plot.
+1. The result from the Analysis function is used to get the cluster plot.
 
 
 ## Contributions
 
 The author of the package is Shahzada Muhammad Shameel Farooq.
+The *clusterAnalysis* function makes use of the filter function from `dplyr` and
+the kmeans function from `stats`.
+The *clusterPlot* makes use of the fviz_cluster function from `factoextra` and
+the theme_bw function from `ggplot2`
 
 ## References
+
+R Core Team (2021). R: A language and environment for statistical computing. R Foundation for Statistical Computing, Vienna, Austria. https://www.R-project.org/
+
+H. Wickham. ggplot2: Elegant Graphics for Data Analysis. Springer-Verlag New York,
+  2016.
+
+Wickham H, François R, Henry L, Müller K (2022). _dplyr: A Grammar of Data
+  Manipulation_. R package version 1.0.10,
+  <https://CRAN.R-project.org/package=dplyr>.
+
+Kassambara A, Mundt F (2020). _factoextra: Extract and Visualize the Results of
+  Multivariate Data Analyses_. R package version 1.0.7,
+  <https://CRAN.R-project.org/package=factoextra>.
+  
+Li, T., Chen, X., Gu, M. et al. Identification of the subtypes of gastric
+cancer based on DNA methylation and the prediction of prognosis.
+Clin Epigenet 12, 161 (2020). https://doi.org/10.1186/s13148-020-00940-3
 
 ## Acknowledgements 
 This package was developed as part of an assessment for 2022 BCB410H: Applied Bioinformatics course at the University of Toronto, Toronto, CANADA. oncoCluster welcomes issues, enhancement requests, and other contributions. To submit an issue, use the GitHub issues.
