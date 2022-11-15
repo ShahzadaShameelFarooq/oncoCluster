@@ -3,9 +3,9 @@
 #' A function that does k-means clustering on DNA methylation Data taken from
 #' multiple samples given the significant methylation sites.
 #'
-#' @param dnaMethylationData A csv file which contains DNA Methylation beta
+#' @param dnaMethylationData A matrix which contains DNA Methylation beta
 #'     values of various methylation sites from several different samples.
-#' @param dnaMethylationSites A csv file that contains the DNA methylation sites
+#' @param dnaMethylationSites A matrix that contains the DNA methylation sites
 #'     which have been validated as being significant for the purposes of
 #'     clustering.
 #'
@@ -21,7 +21,7 @@
 #'    \item ifault integer: indicator of a possible fault.
 #' }
 #'
-#' @example
+#' @examples
 #' # Example 1:
 #' # Using methylationData and significantSites Data available with package
 #' dim(methylationData)
@@ -45,7 +45,6 @@
 #'
 #' @export
 #' @import dplyr
-#' @import stats
 clusterAnalysis <- function(dnaMethylationData, dnaMethylationSites){
 
   # Select the significant features from the data
@@ -61,7 +60,7 @@ clusterAnalysis <- function(dnaMethylationData, dnaMethylationSites){
   dnaMethylationData <- t(dnaMethylationData)
 
   # Implement the kmeans algorithm
-  results <- stats::kmeans(dnaMethylationData, centers = 3, nstart = 20)
+  results <- kmeans(dnaMethylationData, centers = 3, nstart = 20)
 
   # Reset the seed
   set.seed(NULL)

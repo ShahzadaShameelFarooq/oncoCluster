@@ -1,0 +1,62 @@
+---
+title: "Introduction_oncoCluster"
+output: rmarkdown::html_vignette
+vignette: >
+  %\VignetteIndexEntry{Introduction_oncoCluster}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+
+```{r, include = FALSE}
+knitr::opts_chunk$set(
+  collapse = TRUE,
+  comment = "#>"
+)
+```
+
+## Introduction
+
+oncoCluster is an R package which uses single omics and multi-omics data to 
+identify cancer sub-types by using various clustering algorithms. It also allows
+the user to visualize the results of the clustering algorithms by creating plots.
+
+
+## Installation
+
+```{r setup}
+require(devtools)
+install_github("ShahzadaShameelFarooq/oncoCluster", build_vignettes = TRUE)
+library(oncoCluster)
+```
+
+To list all sample functions available in the package:
+``` r
+ls("package:oncoCluster")
+```
+To list all sample datasets available in the package:
+``` r
+data(package = "oncoCluster")
+```
+
+## Using the functions
+
+An example function call to clusterAnalysis and clusterPlot
+```r
+# Dna methylation Data of multiple patients 
+dim(methylationData)
+
+# DNA methylation sites deemed significant for clustering by cox regression
+dim(significantSites)
+
+# Function call to clusterAnalysis
+res <- clusterAnalysis(dnaMethylationData = methylationData, dnaMethylationSites = significantSites)
+
+# View the results of clusterAnalysis
+res
+
+# Create a plot of the results
+clusterPlot(dnaMethylationData = methylationData,
+dnaMethylationSites = significantSites, clusterResults = res)
+```
+
+
