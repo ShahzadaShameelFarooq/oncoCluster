@@ -53,6 +53,8 @@ data and 1 function which provides a graphical output.
 1.  The result from the Analysis function is used to get the cluster
     plot.
 
+![](./inst/extdata/overview.png)
+
 ## Contributions
 
 The author of the package is Shahzada Muhammad Shameel Farooq. The

@@ -61,6 +61,7 @@ samples to identify sub-types in the cancer.
 - Graphical Output
 1. The result from the Analysis function is used to get the cluster plot.
 
+![](./inst/extdata/overview.png)
 
 ## Contributions
 
