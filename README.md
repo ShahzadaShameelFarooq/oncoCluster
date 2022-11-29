@@ -25,7 +25,7 @@ You can install the development version of oncoCluster from
 [GitHub](https://github.com/) with:
 
 ``` r
-require("devtools)
+require("devtools")
 devtools::install_github("ShahzadaShameelFarooq/oncoCluster", build_vignettes = TRUE)
 library(oncoCluster)
 ```
