@@ -60,3 +60,7 @@ dnaMethylationSites = significantSites, clusterResults = res)
 ```
 
 
+```{r}
+sessionInfo()
+```
+
