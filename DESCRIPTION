@@ -20,7 +20,8 @@ Imports:
   stats,
   dplyr,
   factoextra,
-  ggplot2
+  ggplot2,
+  mclust
 Suggests: 
     testthat (>= 3.0.0),
     knitr,
