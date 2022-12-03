@@ -21,7 +21,8 @@ Imports:
   dplyr,
   factoextra,
   ggplot2,
-  mclust
+  mclust,
+  shiny
 Suggests: 
     testthat (>= 3.0.0),
     knitr,
