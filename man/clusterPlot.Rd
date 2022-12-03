@@ -2,7 +2,7 @@
 % Please edit documentation in R/plot.R
 \name{clusterPlot}
 \alias{clusterPlot}
-\title{Plot the k-means cluster results}
+\title{Plot the cluster results}
 \usage{
 clusterPlot(dnaMethylationData, dnaMethylationSites, clusterResults)
 }
@@ -12,15 +12,17 @@ values of various methylation sites from several different samples.}
 
 \item{dnaMethylationSites}{A matrix that contains the DNA methylation sites
 which have been validated as being significant for the purposes of
-clustering.}
+clustering. These are generated using cox regression analysis.}
 
-\item{clusterResults}{A list which are the results from the k-means cluster.}
+\item{clusterResults}{A list which are the results from clusterAnalysis or
+clusterAnalysisTwo functions..}
 }
 \value{
 Returns a cluster plot.
 }
 \description{
-A function that plots the results from the k-means cluster results.
+A function that plots the results from the cluster results of either
+clusterAnalysis or clusterAnalysisTwo
 }
 \examples{
 # Example 1:
@@ -30,6 +32,16 @@ dim(significantSites)
 
 # Do clustering Analysis
 results <- clusterAnalysis(dnaMethylationData = methylationData, dnaMethylationSites = significantSites)
+
+clusterPlot(dnaMethylationData = methylationData, dnaMethylationSites = significantSites, clusterResults = results)
+
+# Example 2:
+# Using methylationData and significantSites Data available with package
+dim(methylationData)
+dim(significantSites)
+
+# Do clustering Analysis
+results <- clusterAnalysisTwo(dnaMethylationData = methylationData, dnaMethylationSites = significantSites)
 
 clusterPlot(dnaMethylationData = methylationData, dnaMethylationSites = significantSites, clusterResults = results)
 
