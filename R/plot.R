@@ -66,5 +66,72 @@ clusterPlot <- function(dnaMethylationData, dnaMethylationSites,
 
 }
 
+#' Compare Cluster Results
+#'
+#' A function that plots the barplots from the results of both clusterAnalysis
+#' and clusterAnalysisTwo
+#'
+#' @param clusterResults A list which are the results from clusterAnalysis
+#' @param clusterResultsTwo A list which are the results from clusterAnalysisTwo
+#'
+#' @return Returns a figure with two barplots
+#'
+#' @examples
+#' # Example 1:
+#' # Using methylationData and significantSites Data available with package
+#' dim(methylationData)
+#' dim(significantSites)
+#'
+#' # Do clustering Analysis
+#' results <- clusterAnalysis(dnaMethylationData = methylationData, dnaMethylationSites = significantSites)
+#' resultsTwo <- clusterAnalysisTwo(dnaMethylationData = methylationData, dnaMethylationSites = significantSites)
+#'
+#' # Use the function to compare the clusters
+#' compareClusterPlot(clusterResults = results, clusterResultsTwo = resultsTwo)
+#'
+#' @references
+#'R Core Team (2022). R: A language and environment for statistical computing. R Foundation for Statistical
+#'Computing, Vienna, Austria. URL https://www.R-project.org/.
+#' @export
+compareClusterPlot <- function(clusterResults, clusterResultsTwo){
+  # Input checks
+
+  if(is.list(clusterResults) == "FALSE"){
+    stop("Invalid input, must provide list from clusterAnalysis function.")
+  }
+
+  if(is.list(clusterResultsTwo) == "FALSE"){
+    stop("Invalid input, must provide list from clusterAnalysisTwo function.")
+  }
+
+  if(!(is.null(clusterResults$cluster))){
+    matrixOne <- as.matrix(table(clusterResults$cluster))
+  }else{
+    stop("Invalid results input into clusterAnalysisRes.")
+  }
+
+  if(!(is.null(clusterResultsTwo$classification))){
+    matrixTwo <- as.matrix(table(clusterResultsTwo$classification))
+  }else{
+    stop("Invalid results input into clusterAnalysisTwoRes.")
+  }
+
+  resultsOne <- c(matrixOne[1,1], matrixOne[2,1], matrixOne[3,1])
+  resultsTwo <- c(matrixTwo[1,1], matrixTwo[2,1], matrixTwo[3,1])
+  data <- data.frame(resultsOne, resultsTwo)
+
+  barplot(as.matrix(data),
+          main="Multiple Bar Plots",
+
+          # setting y label only
+          # because x-label will be our
+          # barplots name
+          ylab="Count",
+
+          # to plot the bars vertically
+          beside=TRUE,
+  )
+}
+
 
 # [END]
