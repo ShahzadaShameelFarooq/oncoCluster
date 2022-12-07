@@ -1,10 +1,13 @@
+# This example is adapted from
+# Grolemund, G. (2015). Learn Shiny - Video Tutorials. URL:https://shiny.rstudio.com/tutorial/
+
 library(shiny)
 
-# Define UI for data upload app ----
+# Define UI
 ui <- fluidPage(
 
-  # App title ----
-  titlePanel("Uploading Files"),
+  # Change title
+  titlePanel("oncoCluster"),
 
   # Sidebar layout with input and output definitions ----
   sidebarLayout(
@@ -12,91 +15,178 @@ ui <- fluidPage(
     # Sidebar panel for inputs ----
     sidebarPanel(
 
-      # Input: Select a file ----
-      fileInput("file1", "Choose CSV File",
-                multiple = FALSE,
-                accept = c("text/csv",
-                           "text/comma-separated-values,text/plain",
-                           ".csv")),
+      tags$p("This is a simple Shiny App that is part of the oncoCluster in R.
+             Its purpose is to illustrate the functionality of a simple
+             Shiny App."),
+      # br() element to introduce extra vertical spacing ----
+      br(),
 
-      # Horizontal line ----
-      tags$hr(),
+      tags$b("Description: oncoCluster is an R package that identifies cancer
+             sub-types using DNA methylation data. It employs different
+             clustering algorithms and allows users to compare the results. It
+             also allows for visualisation of results through creating plots."),
 
-      # Input: Checkbox if file has header ----
-      checkboxInput("header", "Header", TRUE),
+      # br() element to introduce extra vertical spacing ----
+      br(),
+      br(),
 
-      # Input: Select separator ----
-      radioButtons("sep", "Separator",
-                   choices = c(Comma = ",",
-                               Semicolon = ";",
-                               Tab = "\t"),
-                   selected = ","),
+      # input
+      tags$p("Instructions: Below, enter or select values required to perform the analysis. Default
+             values are shown. Then press 'Run'. Navigate through
+             the different tabs to the right to explore the results."),
 
-      # Input: Select quotes ----
-      radioButtons("quote", "Quote",
-                   choices = c(None = "",
-                               "Double Quote" = '"',
-                               "Single Quote" = "'"),
-                   selected = '"'),
+      # br() element to introduce extra vertical spacing ----
+      br(),
 
-      # Horizontal line ----
-      tags$hr(),
+      # input
+      shinyalert::useShinyalert(force = TRUE),  # Set up shinyalert
+      fileInput(inputId = "file1",
+                label = "Select a Dna Methylation dataset.",
+                accept = c(".csv")),
+      fileInput(inputId = "file2",
+                label = "Select a Dna Methylation significant sites dataset.",
+                accept = c(".csv")),
 
-      # Input: Select number of rows to display ----
-      radioButtons("disp", "Display",
-                   choices = c(Head = "head",
-                               All = "all"),
-                   selected = "head")
+
+      # br() element to introduce extra vertical spacing ----
+      br(),
+
+      # actionButton
+      actionButton(inputId = "button2",
+                   label = "Run"),
 
     ),
 
     # Main panel for displaying outputs ----
     mainPanel(
 
-      # Output: Data file ----
-      tableOutput("contents")
+      # Output: Tabset w/ plot, summary, and table ----
+      tabsetPanel(type = "tabs",
+
+                  tabPanel("Results of ClusterAnalysis",
+                           h3("Instructions: Enter values and click 'Run'
+                              at the bottom left side."),
+                           verbatimTextOutput("textOutCA")),
+                  tabPanel("Results of ClusterAnalysisTwo",
+                           h3("Instructions: Enter values and click 'Run'
+                              at the bottom left side."),
+                           verbatimTextOutput("textOutCATwo")),
+                  tabPanel("Results of ClusterComparison",
+                           h3("Instructions: Enter values and click 'Run'
+                              at the bottom left side."),
+                           verbatimTextOutput("textOutCAComparison")),
+                  tabPanel("Plot of ClusterAnalysis",
+                           h3("Instructions: Enter values and click 'Run'
+                              at the bottom left side."),
+                           br(),
+                           plotOutput("clusterAnalysisPlot")),
+                  tabPanel("Plot of ClusterAnalysisTwo",
+                           h3("Instructions: Enter values and click 'Run'
+                              at the bottom left side."),
+                           br(),
+                           plotOutput("clusterAnalysisTwoPlot")),
+                  tabPanel("Plot of compareClusterPlot",
+                           h3("Instructions: Enter values and click 'Run'
+                              at the bottom left side."),
+                           br(),
+                           plotOutput("comparisonPlot"))
+      )
 
     )
-
   )
 )
 
-# Define server logic to read selected file ----
+# Define server logic for random distribution app ----
 server <- function(input, output) {
 
-  output$contents <- renderTable({
+  # Save input csv as a reactive
+  matrixInputOne <- eventReactive(eventExpr = input$button2, {
+    if (! is.null(input$file1))
+      read.csv(input$file1$datapath)
+  })
 
-    # input$file1 will be NULL initially. After the user selects
-    # and uploads a file, head of that data file by default,
-    # or all rows if selected, will be shown.
+  matrixInputTwo <- eventReactive(eventExpr = input$button2, {
+    if (! is.null(input$file2))
+      read.csv(input$file2$datapath)
+  })
 
-    req(input$file1)
+  # Calculate information criteria value
+  resultsOne <- eventReactive(eventExpr = input$button2, {
 
-    # when reading semicolon separated files,
-    # having a comma separator causes `read.csv` to error
-    tryCatch(
-      {
-        df <- read.csv(input$file1$datapath,
-                       header = input$header,
-                       sep = input$sep,
-                       quote = input$quote)
-      },
-      error = function(e) {
-        # return a safeError if a parsing error occurs
-        stop(safeError(e))
-      }
-    )
+    oncoCluster::clusterAnalysis(dnaMethylationData = matrixInputOne(),
+                                 dnaMethylationSites = matrixInputTwo())
 
-    if(input$disp == "head") {
-      return(head(df))
-    }
-    else {
-      return(df)
-    }
+  })
 
+  resultsTwo <- eventReactive(eventExpr = input$button2, {
+
+    oncoCluster::clusterAnalysisTwo(dnaMethylationData = matrixInputOne(),
+                                 dnaMethylationSites = matrixInputTwo())
+  })
+
+  resultsComparison <- eventReactive(eventExpr = input$button2, {
+
+    oncoCluster::clusterComparison(clusterAnalysisRes = resultsOne(),
+                                   clusterAnalysisTwoRes = resultsTwo())
+  })
+
+  clusterPlotResultsOne <- eventReactive(eventExpr = input$button2, {
+
+    oncoCluster::clusterPlot(dnaMethylationData = matrixInputOne(),
+                             dnaMethylationSites = matrixInputTwo(),
+                             clusterResults = resultsOne())
+  })
+
+  clusterPlotResultsTwo <- eventReactive(eventExpr = input$button2, {
+
+    oncoCluster::clusterPlot(dnaMethylationData = matrixInputOne(),
+                             dnaMethylationSites = matrixInputTwo(),
+                             clusterResults = resultsTwo())
+  })
+
+  compareClusterPlotResults <- eventReactive(eventExpr = input$button2, {
+
+    oncoCluster::compareClusterPlot(clusterResults = resultsOne(),
+                                    clusterResultsTwo = resultsTwo())
+
+  })
+
+
+  # Text output
+  output$textOutCA <- renderPrint({
+    if (! is.null(resultsOne))
+      resultsOne()
+  })
+
+  output$textOutCATwo <- renderPrint({
+    if (! is.null(resultsTwo))
+      resultsTwo()
+  })
+
+  output$textOutCAComparison <- renderPrint({
+    if (! is.null(resultsComparison))
+      resultsComparison()
+  })
+
+  # Plot output
+  output$clusterAnalysisPlot <- renderPlot({
+    if (! is.null(clusterPlotResultsOne))
+      clusterPlotResultsOne()
+  })
+
+  output$clusterAnalysisTwoPlot <- renderPlot({
+    if (! is.null(clusterPlotResultsTwo))
+      clusterPlotResultsTwo()
+  })
+
+  output$comparisonPlot <- renderPlot({
+    if (! is.null(compareClusterPlotResults))
+      compareClusterPlotResults()
   })
 
 }
 
 # Create Shiny app ----
-shinyApp(ui, server)
+shiny::shinyApp(ui, server)
+
+# [END]
