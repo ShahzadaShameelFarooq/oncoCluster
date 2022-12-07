@@ -16,8 +16,8 @@ ui <- fluidPage(
     sidebarPanel(
 
       tags$p("This is a simple Shiny App that is part of the oncoCluster in R.
-             Its purpose is to illustrate the functionality of a simple
-             Shiny App."),
+             Its purpose is to perform clustering analysis using different
+             algorithms and also to plot the results."),
       # br() element to introduce extra vertical spacing ----
       br(),
 
@@ -39,12 +39,16 @@ ui <- fluidPage(
       br(),
 
       # input
-      shinyalert::useShinyalert(force = TRUE),  # Set up shinyalert
+      shinyalert::useShinyalert(force = TRUE), # Set up shinyalert
+      uiOutput("tab1"),
       fileInput(inputId = "file1",
-                label = "Select a Dna Methylation dataset.",
+                label = "Select a Dna Methylation dataset. File should be in
+                csv format.",
                 accept = c(".csv")),
+      uiOutput("tab2"),
       fileInput(inputId = "file2",
-                label = "Select a Dna Methylation significant sites dataset.",
+                label = "Select a Dna Methylation significant sites dataset.
+                File should be in csv format.",
                 accept = c(".csv")),
 
 
@@ -183,6 +187,20 @@ server <- function(input, output) {
     if (! is.null(compareClusterPlotResults))
       compareClusterPlotResults()
   })
+
+
+
+  # URLs for downloading data
+  url1 <- a("Example Dataset for DNA Methylation Data", href="https://raw.githubusercontent.com/ShahzadaShameelFarooq/oncoCluster/main/inst/extdata/methylationData.csv")
+  output$tab1 <- renderUI({
+    tagList("Download:", url1)
+  })
+
+  url2 <- a("Example Dataset for DNA methylation Significant Sites Data", href="https://raw.githubusercontent.com/ShahzadaShameelFarooq/oncoCluster/main/inst/extdata/significantSites.csv")
+  output$tab2 <- renderUI({
+    tagList("Download:", url2)
+  })
+
 
 }
 
