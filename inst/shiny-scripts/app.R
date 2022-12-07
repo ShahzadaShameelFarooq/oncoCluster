@@ -74,10 +74,13 @@ ui <- fluidPage(
                   tabPanel("Results of ClusterAnalysisTwo",
                            h3("Instructions: Enter values and click 'Run'
                               at the bottom left side."),
+                           h4("Summary of results"),
                            verbatimTextOutput("textOutCATwo")),
                   tabPanel("Results of ClusterComparison",
                            h3("Instructions: Enter values and click 'Run'
                               at the bottom left side."),
+                           h4("Difference between the largest clusters of both
+                              clusterAnalysis and clusterAnalysisTwo:"),
                            verbatimTextOutput("textOutCAComparison")),
                   tabPanel("Plot of ClusterAnalysis",
                            h3("Instructions: Enter values and click 'Run'
@@ -164,7 +167,7 @@ server <- function(input, output) {
 
   output$textOutCATwo <- renderPrint({
     if (! is.null(resultsTwo))
-      resultsTwo()
+      summary(resultsTwo())
   })
 
   output$textOutCAComparison <- renderPrint({
