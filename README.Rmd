@@ -20,12 +20,10 @@ knitr::opts_chunk$set(
 
 ## Description
 
-oncoCluster is an R package used to identify cancer sub-types by using various 
-clustering algorithms and using single omics data as well as integrating multi
-omics data. The package will allow for the user to compare the clustering
-results from the different clustering algorithms. Furthermore, it will allow the 
-user to validate whether intergrating data from various omics provides better 
-results. 
+oncoCluster is an R package which identifies cancer subtypes using DNA 
+methylation data. It employs different clustering algorithms and allows users to
+compare the results. There are also functions to visualise the results and 
+compare the output of the analysis. 
 
 The `oncoCluster` package was developed using 
 `R version 4.2.1 (2022-06-23)`, `Platform: x86_64-apple-darwin17.0`
