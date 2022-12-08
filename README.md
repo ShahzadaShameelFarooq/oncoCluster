@@ -30,7 +30,11 @@ devtools::install_github("ShahzadaShameelFarooq/oncoCluster", build_vignettes = 
 library(oncoCluster)
 ```
 
-To run the shinyApp: Under construction
+To run the shinyApp:
+
+``` r
+runOncoCluster()
+```
 
 ## Overview
 
@@ -40,28 +44,46 @@ data(package = "oncoCluster")
 browseVignettes("oncoCluster")
 ```
 
-`oncoCluster` currently contains 1 function for analysis of the input
-data and 1 function which provides a graphical output.
+`oncoCluster` currently contains 3 functions for analysis of the input
+data and 2 functions which provides a graphical output.
 
--   Analysis (1 function):
+-   Analysis (3 function):
 
-1.  Using DNA methylation data of different methylation sites from
-    various samples to identify sub-types in the cancer.
+1.  clusterAnalysis: A function that does k-means clustering on DNA
+    methylation Data taken from multiple samples given the significant
+    methylation sites.
 
--   Graphical Output
+2.  clusterAnalysisTwo: A function that does clustering, using mclust
+    package, on DNA methylation Data taken from multiple samples given
+    the significant methylation sites.
 
-1.  The result from the Analysis function is used to get the cluster
-    plot.
+3.  clusterComparison: A function that compares the results of
+    clusterAnalysis and clusterAnalysisTwo by looking at the samples
+    clustered in the maximum cluster by both functions and getting the
+    difference in the clusters.
+
+-   Graphical Output (2 functions)
+
+1.  clusterPlot: A function that plots the results from the cluster
+    results of either clusterAnalysis or clusterAnalysisTwo.
+
+2.  compareClusterPlot: A function that plots the barplots from the
+    results of both clusterAnalysis and clusterAnalysisTwo.
 
 ![](./inst/extdata/overview.png)
 
 ## Contributions
 
 The author of the package is Shahzada Muhammad Shameel Farooq. The
-*clusterAnalysis* function makes use of the filter function from `dplyr`
-and the kmeans function from `stats`. The *clusterPlot* makes use of the
-fviz_cluster function from `factoextra` and the theme_bw function from
-`ggplot2`
+*clusterAnalysis* function was written by the author and makes use of
+the filter function from `dplyr` and the kmeans function from `stats`.
+The *clusterAnalysisTwo* function was written by the author and makes
+use of the filter function from`dplyr`and the Mclust function from the
+`mclust` The *clusterComparison* function was written by the author and
+makes use of the filter function from `dplyr` The *clusterPlot* function
+was written by the author and makes use of the fviz_cluster function
+from `factoextra` and the theme_bw function from `ggplot2`. The
+*compareClusterPlot* was written by the author.
 
 ## References
 
