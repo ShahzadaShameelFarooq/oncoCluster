@@ -16,9 +16,10 @@ knitr::opts_chunk$set(
 
 ## Introduction
 
-oncoCluster is an R package which uses single omics and multi-omics data to 
-identify cancer sub-types by using various clustering algorithms. It also allows
-the user to visualize the results of the clustering algorithms by creating plots.
+oncoCluster is an R package which identifies cancer subtypes using DNA 
+methylation data. It employs different clustering algorithms and allows users to
+compare the results. There are also functions to visualise the results and 
+compare the output of the analysis.
 
 
 ## Installation
@@ -41,7 +42,7 @@ data(package = "oncoCluster")
 ## Using the functions
 
 An example function call to clusterAnalysis and clusterPlot
-```r
+```{r, }
 # Dna methylation Data of multiple patients 
 dim(methylationData)
 
@@ -59,6 +60,84 @@ clusterPlot(dnaMethylationData = methylationData,
 dnaMethylationSites = significantSites, clusterResults = res)
 ```
 
+An example function call to clusterAnalysisTwo and clusterPlot
+```{r, }
+# Dna methylation Data of multiple patients 
+dim(methylationData)
+
+# DNA methylation sites deemed significant for clustering by cox regression
+dim(significantSites)
+
+# Function call to clusterAnalysisTwo
+resTwo <- clusterAnalysisTwo(dnaMethylationData = methylationData, dnaMethylationSites = significantSites)
+
+# View the results of clusterAnalysisTwo
+resTwo
+
+# Viewing the classification of the results from clusterAnalysisTwo
+resTwo$classification
+
+# Create a plot of the results
+clusterPlot(dnaMethylationData = methylationData,
+dnaMethylationSites = significantSites, clusterResults = resTwo)
+```
+
+An example function call to clusterComparison
+```{r, }
+# Dna methylation Data of multiple patients 
+dim(methylationData)
+
+# DNA methylation sites deemed significant for clustering by cox regression
+dim(significantSites)
+
+# Perform clustering using both clusterAnalysis and clusterAnalysisTwo
+resOne <- clusterAnalysis(dnaMethylationData = methylationData, dnaMethylationSites = significantSites)
+resTwo <- clusterAnalysisTwo(dnaMethylationData = methylationData, dnaMethylationSites = significantSites)
+
+# Function call to clusterComparison
+
+finalRes <- clusterComparison(clusterAnalysisRes = resOne, clusterAnalysisTwoRes = resTwo)
+
+# View the result
+finalRes
+
+
+```
+
+An example function call to compareClusterPlot
+```{r,}
+results <- clusterAnalysis(dnaMethylationData = methylationData, dnaMethylationSites = significantSites)
+resultsTwo <- clusterAnalysisTwo(dnaMethylationData = methylationData, dnaMethylationSites = significantSites)
+
+compareClusterPlot(clusterResults = results, clusterResultsTwo = resultsTwo)
+```
+
+## Package References
+
+- Farooq, S.M.S. (2022) oncoCluster: R package to identify cancer sub-types 
+  through clustering and DNA methylation Data.
+  
+## Other references
+
+R Core Team (2021). R: A language and environment for statistical computing. R Foundation for Statistical Computing, Vienna, Austria. https://www.R-project.org/
+
+H. Wickham. ggplot2: Elegant Graphics for Data Analysis. Springer-Verlag New York,
+  2016.
+
+Wickham H, François R, Henry L, Müller K (2022). _dplyr: A Grammar of Data
+  Manipulation_. R package version 1.0.10,
+  <https://CRAN.R-project.org/package=dplyr>.
+
+Kassambara A, Mundt F (2020). _factoextra: Extract and Visualize the Results of
+  Multivariate Data Analyses_. R package version 1.0.7,
+  <https://CRAN.R-project.org/package=factoextra>.
+  
+Li, T., Chen, X., Gu, M. et al. Identification of the subtypes of gastric
+cancer based on DNA methylation and the prediction of prognosis.
+Clin Epigenet 12, 161 (2020). https://doi.org/10.1186/s13148-020-00940-3
+
+Scrucca L., Fop M., Murphy T. B. and Raftery A. E. (2016) mclust 5: clustering, classification and
+density estimation using Gaussian finite mixture models The R Journal 8/1, pp. 289-317
 
 ```{r}
 sessionInfo()

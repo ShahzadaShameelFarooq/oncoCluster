@@ -1,12 +1,14 @@
 citHeader("To cite oncoCluster in publications use:")
 
 citEntry(entry = "Unpublished",
-  title        = "oncoCluster: R package to identify cancer sub-types through clustering and using single and multi- omics data",
+  title        = "oncoCluster: R package to identify cancer sub-types through
+  clustering and DNA methylation data",
   author       = "Shahzada Muhammad Shameel Farooq",
   note         = "Unpublished",
   year         = "2022",
 
   textVersion  =
-  paste("Farooq, S.M.S. (2022) oncoCluster: R package to identify cancer sub-types through clustering and using single and multi- omics data.
+  paste("Farooq, S.M.S. (2022) oncoCluster: R package to identify cancer
+  sub-types through clustering and using DNA methylation data.
         Unpublished. URL https://github.com/ShahzadaShameelFarooq/oncoCluster.")
 )

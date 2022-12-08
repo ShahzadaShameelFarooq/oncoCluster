@@ -85,6 +85,10 @@ gastric cancer based on DNA methylation and the prediction of prognosis.
 Clin Epigenet 12, 161 (2020).
 <https://doi.org/10.1186/s13148-020-00940-3>
 
+Scrucca L., Fop M., Murphy T. B. and Raftery A. E. (2016) mclust 5:
+clustering, classification and density estimation using Gaussian finite
+mixture models The R Journal 8/1, pp. 289-317
+
 ## Acknowledgements
 
 This package was developed as part of an assessment for 2022 BCB410H:
